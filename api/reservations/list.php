@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $expectedToken = Env::get('ADMIN_API_TOKEN', '');
 
 if ($expectedToken !== '') {
-    $provided = (string) ($_SERVER['HTTP_AUTHORIZATION'] ?? '');
+    $provided = steakhouse_authorization_header();
+
     if (preg_match('/^Bearer\s+(.+)$/i', $provided, $m)) {
         $provided = trim($m[1]);
     } else {
@@ -40,4 +41,30 @@ try {
 } catch (Throwable $e) {
     error_log('[Reservation.list] ' . $e->getMessage());
     Response::error('Something went wrong while loading reservations.', 500);
+}
+
+/**
+ * Extract the Authorization header value.
+ *
+ * Some Apache/FastCGI/CGI setups do NOT map the Authorization header to
+ * $_SERVER['HTTP_AUTHORIZATION']. When that key is missing, read the header
+ * directly via getallheaders() so Bearer auth keeps working everywhere.
+ */
+function steakhouse_authorization_header(): string
+{
+    $header = (string) ($_SERVER['HTTP_AUTHORIZATION'] ?? '');
+
+    if ($header !== '') {
+        return $header;
+    }
+
+    if (function_exists('getallheaders')) {
+        foreach (getallheaders() as $name => $value) {
+            if (strcasecmp((string) $name, 'authorization') === 0) {
+                return (string) $value;
+            }
+        }
+    }
+
+    return '';
 }
