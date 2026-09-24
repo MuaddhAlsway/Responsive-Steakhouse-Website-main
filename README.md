@@ -6,6 +6,10 @@ The frontend keeps the original steakhouse design, animations, images, and respo
 
 > 🎓 This project is designed as a **project-based learning exercise**: every layer is deliberately small and readable so you can follow a request from the **Browser → JavaScript → PHP → MySQL → JSON → Browser** without a framework hiding the work.
 
+> ✅ **Status (24 Sep 2026):** running locally on XAMPP and production-ready on
+> **Render + Aiven MySQL 8.4 (TLS)**. For the full audit, validation evidence and
+> deployment checklist see **[PROJECT_REPORT.md](PROJECT_REPORT.md)**.
+
 ---
 
 ## ✨ Features
@@ -32,7 +36,7 @@ The frontend keeps the original steakhouse design, animations, images, and respo
 | Local dev  | XAMPP (Apache + MySQL + PHP)                   |
 | Container  | Docker (php:8.2-apache)                        |
 | CI/CD      | GitHub Actions → Render Deploy Hook            |
-| Production | Render Web Service + external managed MySQL    |
+| Production | Render + Aiven MySQL 8.4 (TLS, SSL REQUIRED)   |
 
 No frameworks are used — no React, Vue, Laravel, or Node.
 
@@ -58,6 +62,21 @@ No frameworks are used — no React, Vue, Laravel, or Node.
 │        MySQL         │
 │ Persistent Data      │
 └──────────────────────┘
+```
+
+The three target flows:
+
+```
+LOCAL
+Browser → XAMPP Apache (index.php + api/) → PDO (no TLS) → MariaDB 127.0.0.1:3306 → steakhouse
+
+PRODUCTION
+Browser → Render (Docker, PHP 8.2 + Apache on $PORT) → PDO + TLS (Aiven CA, verify ON)
+       → Aiven MySQL 8.4 → defaultdb (reservations, contact_messages, menu_items)
+
+CI/CD
+git push → main → GitHub Actions (PHP lint → MySQL-8 integration + API tests)
+       → Render Deploy Hook (RENDER_DEPLOY_HOOK secret) → Production
 ```
 
 The full lifecycle of a reservation:
@@ -110,7 +129,8 @@ User → Reservation Form → JS validation → POST /api/reservations/create.ph
 ├── .dockerignore
 ├── Dockerfile
 ├── render.yaml                        # Optional Render blueprint
-└── README.md
+├── README.md                          # This guide
+└── PROJECT_REPORT.md                  # Full audit + validation evidence
 ```
 
 ---
