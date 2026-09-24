@@ -1,7 +1,17 @@
+# Source control / CI
 .git
 .github
+
+# Environment / secrets - never into the image
 .env
+.env.*
+*.pem
+*.crt
+*.key
+
+# Local-only / documentation
 Req
 preview.png
 README.md
 *.txt
+database/ca.pem

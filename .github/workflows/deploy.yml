@@ -72,12 +72,15 @@ jobs:
             sleep 2
           done
 
+      # schema.sql is database-agnostic (no CREATE/USE). The MySQL service
+      # container creates `steakhouse_test` (see MYSQL_DATABASE above), so we
+      # import into it directly. CI never touches the Aiven production DB.
       - name: Import schema
         env:
           MYSQL_PWD: ""
         run: |
-          sudo sed -i 's/steakhouse/steakhouse_test/g' database/schema.sql
-          mysql -h 127.0.0.1 -u root < database/schema.sql
+          mysql -h 127.0.0.1 -u root steakhouse_test < database/schema.sql
+          mysql -h 127.0.0.1 -u root steakhouse_test -e "SHOW TABLES;"
 
       - name: Configure app env
         run: |
@@ -115,6 +118,19 @@ jobs:
 
           echo "== reservations list =="
           curl -fsS http://127.0.0.1:8000/api/reservations/list.php | grep -q '"success":true'
+
+          echo "== TLS fail-closed (no credential leak) =="
+          DB_SSL=true DB_SSL_CA=/tmp/does-not-exist.pem php -S 127.0.0.1:8001 -t . >/tmp/php-server-tls.log 2>&1 &
+          TLS_PID=$!
+          sleep 1
+          CODE=$(curl -s -o /tmp/tls-body.txt -w "%{http_code}" http://127.0.0.1:8001/api/menu/list.php)
+          if [ "$CODE" != "500" ]; then
+            echo "FAIL: expected 500 when TLS CA is missing, got $CODE"; exit 1
+          fi
+          if grep -qiE 'aiven|AVNS_|password|ca certificate' /tmp/tls-body.txt; then
+            echo "FAIL: TLS failure leaked detail to the client"; exit 1
+          fi
+          kill "$TLS_PID" 2>/dev/null || true
 
           kill "$SERVER_PID" 2>/dev/null || true
           echo "All integration checks passed."

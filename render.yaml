@@ -4,20 +4,20 @@
 # You can also create the Web Service manually from the Render
 # dashboard using the Dockerfile in this repo. If you use this
 # blueprint, replace the repo URL and branch, then set the
-# sync:false variables in the Render dashboard (Dashboard ->
-# Blueprint -> Environments).
+# sync:false values in the Render dashboard (Dashboard ->
+# Blueprint -> Environments). Those values are provided by you,
+# never committed here.
 #
-# NOTE: Render does not provide a managed MySQL. Point DB_HOST at
-# an external MySQL/MariaDB provider (e.g. DigitalOcean Managed
-# Databases, Aiven, PlanetScale, Railway) and import
-# database/schema.sql there.
+# NOTE: Render does not provide a managed MySQL. Production uses
+# Aiven MySQL 8.4 (defaultdb, SSL mode REQUIRED). Import
+# database/schema.sql into defaultdb once (see README).
 # ============================================================
 
 services:
   - type: web
     name: steakhouse-php
     runtime: docker
-    repo: https://github.com/your-github-username/responsive-steakhouse-website
+    repo: https://github.com/MuaddhAlsway/Responsive-Steakhouse-Website-main
     branch: main
     plan: starter # adjust plan/instance type as needed
     autoDeploy: true
@@ -27,19 +27,37 @@ services:
       - key: APP_ENV
         value: production
 
+      # ----- Database (Aiven MySQL 8.4, SSL REQUIRED) -----
       - key: DB_HOST
-        sync: false # secret - set in the Render dashboard
+        sync: false # e.g. steakhouse-mysql-<name>-<project>.aivencloud.com (set in dashboard)
 
       - key: DB_PORT
-        value: "3306"
+        value: "15303"
 
       - key: DB_NAME
-        sync: false
+        value: defaultdb
 
       - key: DB_USER
-        sync: false
+        sync: false # e.g. avnadmin
 
       - key: DB_PASSWORD
+        sync: false # Aiven password - NEVER in this file
+
+      # ----- TLS (do not disable verification for Aiven) -----
+      - key: DB_SSL
+        value: "true"
+
+      - key: DB_SSL_CA
+        value: /etc/ssl/certs/aiven-ca.pem
+
+      - key: DB_SSL_VERIFY_SERVER_CERT
+        value: "true"
+
+      # Aiven CA certificate content (multi-line PEM). The Docker
+      # entrypoint writes it to DB_SSL_CA at boot.
+      # Alternative: mount a Render Secret File and point DB_SSL_CA
+      # at its path instead.
+      - key: AIVEN_CA_CERT
         sync: false
 
       # Optional: protect /api/reservations/list.php

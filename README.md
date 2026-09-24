@@ -128,10 +128,16 @@ The site is served by XAMPP Apache, exactly as before, but now `index.php` is th
 ### 🗄️ MySQL Setup
 
 1. Start MySQL from the XAMPP control panel.
-2. Import the schema (this also creates the `steakhouse` database and seeds the menu):
+2. Create the local database. `database/schema.sql` is **database-agnostic** — it never creates or selects a database, so you create/select it on the command line:
 
 ```
-C:\xampp\mysql\bin\mysql.exe -u root < database\schema.sql
+C:\xampp\mysql\bin\mysql.exe -u root -e "CREATE DATABASE IF NOT EXISTS steakhouse CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+```
+
+3. Import the schema **into that database** (this also seeds the 4 menu items):
+
+```
+C:\xampp\mysql\bin\mysql.exe -u root steakhouse < database\schema.sql
 ```
 
 > On XAMPP the `root` user has an empty password by default. Or use **phpMyAdmin** → *Import* → choose `database/schema.sql`.
@@ -156,11 +162,16 @@ Copy `.env.example` → `.env` and fill in:
 | `DB_NAME`                 | `steakhouse`     | Database name                             |
 | `DB_USER`                 | `root`           | Database user                             |
 | `DB_PASSWORD`             | *(empty)*        | Database password                         |
+| `DB_SSL`                  | *(empty)*        | `true` forces TLS; defaults to on when `APP_ENV=production` |
+| `DB_SSL_CA`               | *(empty)*        | CA cert file path inside the container    |
+| `DB_SSL_VERIFY_SERVER_CERT` | *(empty)*     | `true` (default) verifies the server cert — do not disable for Aiven |
+| `AIVEN_CA_CERT`           | *(empty)*        | Optional Aiven CA PEM content written by the Docker entrypoint |
 | `ADMIN_API_TOKEN`         | *(optional)*     | Protects `/api/reservations/list.php`     |
 | `RATE_LIMIT_MAX`          | `10`             | Max requests per IP per window (default)  |
 | `RATE_LIMIT_WINDOW_SECONDS` | `60`           | Rate limit window in seconds              |
 
 `.env` is ignored by Git (`see .gitignore`) — **never commit real credentials**.
+TLS vars only matter in production; local XAMPP leaves them empty.
 
 ---
 
@@ -230,6 +241,7 @@ docker run --rm -p 8080:8080 \
   -e DB_USER=root \
   -e DB_PASSWORD= \
   -e APP_ENV=production \
+  -e DB_SSL=false \          # local only - Aiven requires DB_SSL=true
   steakhouse
 ```
 
@@ -277,9 +289,7 @@ If the secret is missing, the pipeline still runs lint + integration tests and s
 
 ## 🚀 Render Deployment
 
-Runs the website as a **Docker Web Service** on Render.
-
-> ⚠️ Render does **not** provide a managed MySQL database. Keep the PHP app on Render and connect it to an external MySQL/MariaDB provider (DigitalOcean Managed Databases, Aiven, PlanetScale, Railway, or any VPS with MySQL).
+Run the website as a **Docker Web Service** on Render. Production database: **Aiven MySQL 8.4** (`defaultdb`, **SSL mode: REQUIRED**).
 
 ### Option A — Render Dashboard (manual)
 
@@ -290,15 +300,42 @@ Runs the website as a **Docker Web Service** on Render.
 | Variable        | Value / advice                                             |
 | --------------- | ---------------------------------------------------------- |
 | `APP_ENV`       | `production`                                               |
-| `DB_HOST`       | hostname of your managed MySQL (never localhost!)          |
-| `DB_PORT`       | `3306` (or the provider's port)                            |
-| `DB_NAME`       | database name (e.g. `steakhouse`)                          |
-| `DB_USER`       | MySQL user                                                 |
-| `DB_PASSWORD`   | MySQL password (store as secret)                           |
+| `DB_HOST`       | Aiven host, e.g. `steakhouse-mysql-<name>-<project>.aivencloud.com` |
+| `DB_PORT`       | `15303`                                                    |
+| `DB_NAME`       | `defaultdb`                                                |
+| `DB_USER`       | `avnadmin`                                                 |
+| `DB_PASSWORD`   | Aiven password (store as secret)                           |
+| `DB_SSL`        | `true`                                                     |
+| `DB_SSL_CA`     | `/etc/ssl/certs/aiven-ca.pem`                              |
+| `DB_SSL_VERIFY_SERVER_CERT` | `true`                                        |
+| `AIVEN_CA_CERT` | The Aiven CA certificate PEM content (multi-line secret)   |
 | `ADMIN_API_TOKEN` | optional: protect the reservations list endpoint         |
 
-4. Create the database on your provider and import `database/schema.sql`.
-5. Deploy, then configure the **Deploy Hook** URL from *Settings → Deploy Hooks*. Put it in the `RENDER_DEPLOY_HOOK` GitHub secret.
+4. Supply the **Aiven CA certificate**. The Docker entrypoint writes the contents of `AIVEN_CA_CERT` to `/etc/ssl/certs/aiven-ca.pem` at boot. Alternative: mount a **Render Secret File** and point `DB_SSL_CA` at its path.
+5. Import `database/schema.sql` into Aiven (see below) — do it **before** the app goes live.
+6. Deploy, then configure the **Deploy Hook** URL from *Settings → Deploy Hooks*. Put it in the `RENDER_DEPLOY_HOOK` GitHub secret.
+
+### Import schema into Aiven (`defaultdb`)
+
+XAMPP's bundled `mysql.exe` (MariaDB client) **cannot** log in to Aiven — it lacks the `caching_sha2_password` plugin. Use a modern MySQL client:
+
+**Option 1 — MySQL Shell (recommended)**. Download from https://dev.mysql.com/downloads/shell/. It prompts for the password (nothing lands in shell history):
+
+```
+mysqlsh --sql --host=DB_HOST --port=15303 --user=avnadmin --database=defaultdb --ssl-mode=VERIFY_CA --ssl-ca=database\ca.pem --file=database\schema.sql
+```
+
+Replace `DB_HOST` with your Aiven host. Enter the `avnadmin` password when prompted.
+
+**Option 2 — MySQL 8.x `mysql` client** (or via Docker, so no install):
+
+```
+docker run --rm -it -v "%CD%":/app mysql:8.0 mysql -h DB_HOST -P 15303 -u avnadmin -p --ssl-ca=/app/database/ca.pem defaultdb < /app/database/schema.sql
+```
+
+The `-p` flag prompts for the password (not stored in history). On Linux/macOS replace `%CD%` with `$(pwd)` and the path separators accordingly.
+
+> Verify after import: the tables `reservations`, `contact_messages`, `menu_items` exist and the four initial menu items are present. Importing again is safe — the seed only runs when the table is empty.
 
 ### Option B — Render Blueprint (`render.yaml`)
 
@@ -316,6 +353,7 @@ Open the repo on Render using **Blueprint**. Env vars marked `sync: false` must 
 - **Input limits** — length constraints enforced in PHP (and mirrored in the DB schema).
 - **Rate limiting** — sliding-window limiter on public write endpoints (`RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_SECONDS`).
 - **Error handling** — in production `display_errors` is off and database details never reach the browser.
+- **TLS (Aiven)** — production connects over TLS with the Aiven CA and full server-cert verification (`DB_SSL_VERIFY_SERVER_CERT=true`). The app fails closed if the CA is missing; verification is never silently disabled.
 
 ---
 
