@@ -1,0 +1,185 @@
+========== HEADER & NAV ==========
+🔹.nav__logo
+Steakhouse
+
+🔹.nav__link
+Home - About Us - Menu - Events - Contact - Reservation
+
+
+========== HOME SECTION ==========
+🔹.home__title
+A Premium <br>
+And Authentic <br>
+Steakhouse
+
+🔹.button
+Book a Table
+
+🔹.home__images img - alt
+Grilled steak and fresh vegetables
+
+
+========== ABOUT SECTION ==========
+🔹.about__img - alt
+Premium meat grill
+
+🔹.section__subtitle
+Discover
+
+🔹.section__title
+Our Story
+
+🔹.about__description
+Enjoy the finest experience at our steakhouse. Whether you're
+visiting us for a romantic dinner, a business meeting, a private
+party, or simply for a drink at the bar, our steakhouse in Lima
+will provide you with exceptional service and an unforgettable
+dining experience.
+
+🔹.button__link
+Discover our menu
+
+
+========== MENU SECTION ==========
+🔹.section__subtitle
+Discover
+
+🔹.section__title
+Our Menu
+
+🔹.menu__description
+Few things compare to the pleasure of a good steak and fries, simply
+cooked with care and attention. Rest assured that our chefs treat our
+meat with the respect it deserves for the best quality. The open kitchen
+in many of our steakhouses is proof of this.
+
+🔹.menu__dish img - alt
+Menu Specialty
+
+🔹.menu__name 🔹.menu__summary
+Bruschetta
+Start with our fresh baked bread with an egg and basil on top.
+
+Main Dish
+Our juicy, freshly grilled steak is served to satisfy your appetite.
+
+Salad Dish
+Accompany your steak with a healthy salad mixed with sliced lean meat.
+
+Dessert
+End your culinary experience with a cake to cleanse your palate.
+
+
+========== EVENTS SECTION ==========
+🔹.events__img - alt
+People enjoying a meal at a restaurant
+
+🔹.section__subtitle
+Discover
+
+🔹.section__title
+Upcoming Events
+
+🔹.events__description
+Not only will you be able to taste the best
+steak in town, but you can also meet up with
+your old friends while enjoying the food we offer.
+
+🔹.events__name
+Barbecue Party
+
+🔹.events__details
+August 26, 2026 - Lunchtime - Casual
+
+🔹.button__link
+View on Facebook
+
+https://www.facebook.com/
+
+
+========== INGREDIENTS SECTION ==========
+🔹.section__subtitle
+Discover
+
+🔹.section__title
+The Best Ingredients
+
+🔹.ingredients__description
+We take immense pride in carefully selecting our ingredients to ensure
+the flavors of our food are as delicious and authentic as possible.
+We achieve this level of excellence thanks to the attention to detail
+we dedicate to each dish, something difficult to find in other
+restaurants due to our superior quality.
+
+🔹.ingredients__images img - alt
+Natural ingredients for gourmet recipes
+
+
+========== CONTACT SECTION ==========
+🔹.section__subtitle
+Order
+
+🔹.section__title
+Contact Us
+
+🔹.contact__map
+<!-- Insert your location into Google Maps (https://www.google.com/maps) -->
+<!-- Click Share -> Embed Map -> Copy HTML -->
+
+🔹.contact__title 🔹.contact__social 🔹.contact__address
+Write to us
+  https://www.facebook.com/
+  https://www.instagram.com/
+  https://api.whatsapp.com/send?phone=51123456789&text=Hello, more information!
+
+Call us
+  tel:+1234-9876-00
+  tel:+00987654321
+
+  +1234-9876-00
+  +00987654321
+
+Reservation
+  tel:+56-777-99-11-00
+
+  +56-777-99-11-00
+
+
+========== RESERVATION SECTION ==========
+🔹.section__subtitle
+Reservation
+
+🔹.section__title
+Book Your Table
+
+🔹.button
+Book via WhatsApp
+
+https://api.whatsapp.com/send?phone=51123456789&text=Hello, more information!
+
+
+========== FOOTER ==========
+🔹.footer__title 🔹.footer__link 🔹.footer__address
+Links
+  Home - Menu - Contact
+
+Location
+  128th Street Avenue, Miraflores, <br> Lima - Peru
+  
+
+Working Hours
+Monday - Saturday: 9am - 8pm
+Sunday: 9am - 6pm
+
+itemscope itemtype="https://schema.org/LocalBusiness"
+itemprop="openingHours" content="Mo-Sa 09:00-20:00"
+itemprop="openingHours" content="Su 09:00-18:00"
+
+🔹.footer__logo
+Steakhouse
+
+🔹.footer__email
+steakhouse@email.com
+
+🔹.footer__copy
+&#169; All Rights Reserved By Bedimcode

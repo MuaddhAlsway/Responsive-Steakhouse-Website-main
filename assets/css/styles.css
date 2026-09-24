@@ -1,0 +1,1421 @@
+/*=============== GOOGLE FONTS - Insert link for typography ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(30, 32%, 56%);
+  --first-color-alt: hsl(30, 32%, 46%);
+  --white-color: hsl(0, 0%, 98%);
+  --dark-color: hsl(0, 0%, 10%);
+  --text-color: hsl(0, 0%, 20%);
+  --body-color: hsl(0, 0%, 8%);
+  --container-color: hsl(0, 0%, 100%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Lora", serif;
+  --second-font: "Dancing Script", cursive;
+  --biggest-font-size: 2.5rem;
+  --bigger-font-size: 1.75rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+  --font-bold: 700;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*========== Responsive typography ==========*/
+@media (width >= 1150px) {
+  :root {
+    --biggest-font-size: 4rem;
+    --bigger-font-size: 2.5rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+input,
+button {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+}
+
+ body {
+  background-color: var(--body-color);
+  color: var(--white-color);
+} 
+
+input,
+button {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+h1, h2, h3, h4 {
+  font-weight: var(--font-bold);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1120px;
+  margin-inline: 1rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section {
+  padding-block: 5rem 1rem;
+}
+.section__title {
+  text-align: center;
+  font-size: var(--bigger-font-size);
+  margin-bottom: 1rem;
+}
+
+.section__subtitle {
+  display: block;
+  text-align: center;
+  font: var(--font-bold) var(--bigger-font-size) var(--second-font);
+  color: var(--first-color);
+}
+
+.main {
+  overflow: hidden;
+}
+
+/*=============== HEADER & NAV ===============*/
+header{
+  background: var(--body-color);
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: box-shadow 0.4s;
+}
+.nav-container{
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 150px;
+
+}
+
+.nav-container .menu-list{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+.nav-container .nav-logo{
+  color: var(--first-color);
+  font-family: var(--second-font);
+  font-size: 40px;
+}
+
+
+.nav-container .item-link{
+  color: var(--white-color);
+  font-family: sans-serif;
+  transition: 0.4s ease;
+}
+.nav-container .item-link:hover{
+  color: var(--first-color);
+}
+.nav-container .item-link.active-link{
+  color: var(--first-color);
+}
+.nav-container .nav-menu .button{
+  display: none;
+}
+
+
+.scroll-header{
+  box-shadow: 0 2px 16px hsla(0, 0%, 0%, 0.3);
+}
+/* Navigation for mobile devices <> */
+
+
+/* Show menu */
+
+
+/* Change header styles */
+
+
+/* Active link */
+
+
+/*=============== HOME SECTION ===============*/
+.home-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  gap: 150px;
+  
+}
+.home-container .home-data{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 50px;
+}
+.home-data .home-title{
+  font-size: var(--biggest-font-size);
+  font-family: var(--body-font);
+  font-weight: var(--font-bold);
+}
+.home-data .home-btn{
+  display: inline-flex;
+  align-items: center;
+  color: var(--white-color);
+  padding: 20px 40px;
+  background-color: transparent;
+  border: 1px solid var(--white-color);
+  border-radius: 10px;
+  transition: 0.5s ease;
+
+}
+.home-data .home-btn:hover{
+  background-color: var(--first-color);
+  border-color: var(--first-color);
+  color: var(--dark-color);
+  border-radius: 30px;
+}
+.home-images{
+  position: relative;
+  justify-self: center;
+}
+.home-images img{
+  position: absolute;
+}
+.home-images .home-frying-pan{
+  position: relative;
+  width: 600px;
+  z-index: 10;
+}
+.home-images .home-salt{
+  width: 300px;
+  z-index: 3;
+  left: 270px;
+  top: -20px;
+}
+.home-images .home-salt2{
+  width: 300px;
+  z-index: 3;
+  left: -120px;
+  top: 190px;
+}
+.home-images .home-pepper{
+  width: 250px;
+  z-index: 0;
+  left: 120px;
+  top: 360px;
+}
+.home-images .home-tomato{
+  width: 130px;
+  z-index: 0;
+  left: 0px;
+  top: 450px;
+  
+}
+.home-images .home-rosemary-1{
+  width: 120px;
+  z-index: 0;
+  left: -80px;
+  top: 435px;
+}
+.home-images .home-rosemary-2{
+  width: 180px;
+  z-index: 2;
+  left: 450px;
+  top: 300px;
+}
+.home-images .home-onion{
+  width: 120px;
+  z-index: 0;
+  left: -40px;
+  top: 0px;
+}
+.home-images .home-spoon{
+  width: 150px;
+  z-index: 1;
+  left: 500px;
+  top: 75px;
+}
+
+/*=============== BUTTON ===============*/
+
+
+/*=============== ABOUT SECTION ===============*/
+.about-section{
+  background: var(--body-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 150px;
+}
+
+.about-section .about-content{
+  position: relative;
+  padding: 50px 100px;
+  align-items: center;
+  justify-content: center;
+}
+.about-content .about-flour{
+  position: absolute;
+  width: 450px;
+  left: 250px;
+  top: 10;
+  z-index: 1;
+}
+
+.about-content .about-slide{
+  position: relative;
+  display: flex;
+  gap: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1300px;
+  height: 450px;
+  margin: 100px 100px;
+  z-index: 7;
+}
+.about-slide .slide-right{
+  width: 35%;
+  height: 100%;
+}
+.about-slide .slide-data{
+  background: var(--white-color);
+  color: var(--dark-color);
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  
+  padding: 70px 70px;
+
+
+}
+.about-slide .slide-data .title{
+  font-family: var(--second-font);
+  font-size: var(--bigger-font-size);
+  color: var(--first-color);
+}
+.about-slide .slide-data .subtitle{
+  font-family: var(--body-font);
+  font-size: var(--bigger-font-size);
+  font-weight: var(--font-bold);
+  color: var(--dark-color);
+  
+}
+.about-slide .slide-data .slide-btn{
+  font-family: var(--body-font);
+  font-size: var( --h3-font-size);
+  color: var(--first-color);
+  transition: color 0.4s ease;
+}
+.about-slide .slide-data .slide-btn:hover{
+  color: var(--dark-color);
+}
+.slide-btn i{
+  display: inline-flex;
+  transform: translateX(0px);
+  transition:  0.4s ease;
+}
+.about-slide .slide-data .slide-btn:hover i{
+  transform: translateX(20px);
+}
+.about-slide .slide-data .description{
+  color: var(--dark-color);
+  margin-bottom: 70px;
+
+}
+.about-content .about-rossmary{
+  position: absolute;
+  width: 220px;
+  right: -50px;
+  bottom: -50px ;
+  z-index: 9;
+}
+
+
+/*=============== MENU SECTION ===============*/
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  padding: 175px 120px 100px;
+  gap: 100px;
+  align-items: center;
+  
+}
+/* .menu-section .menu-header{
+  display: grid;
+  grid-template-rows: repeat(1,1fr);
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+} */
+.menu-header .header-info{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+}
+.header-info .info-title{
+  font-family: var(--second-font);
+  font-size: var(--h1-font-size);
+  color: var(--first-color);
+}
+.header-info .info-subtitle{
+  font-family: var(--body-font);
+  font-size: var(--h1-font-size);
+  color: var(--white-color);
+
+}
+
+.menu-header .header-summary{
+  max-width: 700px;
+  font-family: var(--body-font);
+  font-size: var(--small-font-size);
+  color: var(--white-color);
+  text-align: center;
+  margin-top: 2.5rem;
+}
+.menu-content .card-info{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: center;
+  direction: rtl;
+}
+.menu-section .menu-content{
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  align-items: center;
+  justify-content: center;
+  gap: 200px;
+}
+.menu-content .menu-card{
+  display: grid;
+  grid-template-rows: repeat(1,1fr);
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  justify-content: center;
+  gap: 150px;
+}
+.menu-content .menu-card1{
+  display: grid;
+  grid-template-rows: repeat(1,1fr);
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  direction: rtl;
+}
+
+.card-images{
+  position: relative;
+  width: 300px;
+}
+.card-images img{
+  position: absolute;
+}
+.card-images .card-dish1{
+  position: relative;
+}
+.card-images .card-flour1{
+  right: -80px;
+  top: -70px;
+}
+.card-images .card-rosemary{
+  width: 200px;
+  left: -40px;
+  top: 80px;
+}
+.card-images .card-dish2{
+  position: relative;
+  transform: scale(1.3);
+}
+.card-images .card-flour2{
+  
+  left: -150px;
+  top: -70px;
+}
+.card-images .card-pepper{
+  width: 200px;
+  right: -80px;
+  top: 200px;
+}
+.card-images .card-dish3{
+  position: relative;
+}
+
+.card-images .card-tomato{
+  width: 130px;
+  left: -20px;
+  top: 220px;
+}
+.card-images .card-flour3{
+  width: 200px;
+  right: -90px;
+  top: -30px;
+}
+
+
+.card-images .card-dish4{
+  position: relative;
+}
+.card-images .card-flour4{
+  width: 350px;
+  left: -90px;
+  top: -30px;
+}
+.card-info .info-title{
+  font-family: var(--second-font);
+  font-size: var(--h2-font-size);
+  color: var(--first-color);
+
+}
+.card-info .card-summary{
+  font-family: var(--body-font);
+  font-size: var(--small-font-size);
+  color: var(--white-color);
+  direction: ltr;
+
+}
+
+/*=============== EVENTS SECTION ===============*/
+
+
+/*=============== INGREDIENTS SECTION ===============*/
+.ingredients-section{
+  padding: 120px 200px 0px;
+}
+.INGREDIENTS-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.INGREDIENTS-info .INGREDIENTS-title{
+  font-family: var(--second-font);
+  font-size: var(--h1-font-size);
+  color: var(--first-color);
+}
+.INGREDIENTS-info .INGREDIENTS-subtitle{
+  font-family: var(--body-font);
+  font-size: var(--h1-font-size);
+  color: var(--white-color);
+  
+}
+.INGREDIENTS-info .INGREDIENTS-description{
+  width: 700px;
+  
+  text-align: center;
+}
+
+.ingredients-content .INGREDIENTS-images{
+  position: relative;
+  width: 100%;
+  height: 850px;
+  padding: 130px 60px 50px;
+
+}
+.INGREDIENTS-images img{
+  position: absolute;
+}
+.INGREDIENTS-images .ingredient-1{
+  width: 20%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.INGREDIENTS-images .ingredient-2{
+  width: 9%;
+  top: 50%;
+  left: 33%;
+  transform: translate(-50%, -50%);
+}
+.INGREDIENTS-images .ingredient-3{
+  width: 6%;
+  top: 60%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.INGREDIENTS-images .ingredient-4{
+  width: 8%;
+  top: 45%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+}
+.INGREDIENTS-images .ingredient-5{
+  width: 10%;
+  top: 70%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+}
+
+.INGREDIENTS-images .ingredient-6{
+  width: 7%;
+  top: 33%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.INGREDIENTS-images .ingredient-7{
+  width: 7%;
+  top: 45%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+.INGREDIENTS-images .ingredient-8{
+  width: 10%;
+  top: 70%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+}
+
+
+/*=============== CONTACT SECTION ===============*/
+.contact-section{
+  padding: 175px 100px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+}
+.contact-section .contact-content{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+
+}
+.contact-content .contact-info{
+  width: 40%;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr) ;
+  grid-template-columns: repeat(2, 1fr) ;
+  align-items: center;
+  text-align: center;
+  row-gap: 100px;
+  gap: 100px;
+}
+
+.contact-header{
+  text-align: center;
+}
+.contact-header .contact-title{
+  font-family: var(--second-font);
+  font-size: var(--h1-font-size);
+  color: var(--first-color);
+}
+
+.contact-header .contact-subtitle{
+  font-family: var(--body-font);
+  font-size: var(--h1-font-size);
+  color: var(--white-color);
+}
+.contact-content .contact-gps{
+  width: 40%;
+}
+.contact-content .contact-gps iframe{
+  width: 100%;
+  height: 400px;
+  display: block;
+  border-radius: 30px;
+}
+.contact-info .info1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: var(--first-color);
+}
+.contact-info .info1 i{
+  transform: scale(2);
+}
+.contact-info .info1 .social-links{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.info1 .social-links a{
+  color: var(--white-color);
+  transform: scale(1.2);
+  transform-origin: center;
+  transition: 0.3s ease;
+}
+.info1 .social-links a:hover{
+  color: var(--white-color);
+  transform: scale(1.6);
+}
+.contact-info .info2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: var(--first-color);
+}
+.contact-info .info2 i{
+  transform: scale(2);
+}
+.info2 .call-text{
+  color: var(--white-color);
+}
+.contact-info .info3{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: var(--first-color);
+}
+.contact-info .info3 i{
+  transform: scale(2);
+}
+.info3 .call-text2{
+  color: var(--white-color);
+}
+
+
+/*=============== RESERVATION SECTION ===============*/
+.reservation-section{
+  padding-top: 130px;
+}
+.reservation-content{
+  padding-top: 150px;
+  position: relative;
+  min-height: 600px;
+  padding-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.reservation-content .reservation-header{
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.reservation-header .reservation-title{
+  font-family: var(--second-font);
+  font-size: 50px;
+  color: var(--white-color);
+}
+
+.reservation-header .reservation-subtitle{
+  font-family: var(--body-font);
+  font-size: 55px;
+  color: var(--white-color);
+}
+.reservation-btn a{
+  color: var(--white-color);
+  transition: 0.5s ease;
+}
+.reservation-btn{
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  color: var(--white-color);
+  padding: 20px 40px;
+  background-color: transparent;
+  border: 1px solid var(--white-color);
+  border-radius: 10px;
+  transition: 0.5s ease;
+}
+.reservation-btn:hover{
+  background-color: var(--first-color);
+  border-color: var(--first-color);
+  color: var(--dark-color);
+  border-radius: 30px;
+}
+.reservation-btn:hover a{
+  color: var(--dark-color);
+}
+
+.reservation-content .bg-image{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+}
+.reservation-content .bg-shadow{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: center;
+  background-color: hsla(0, 0%, 0%, 0.4);
+  z-index: 3;
+}
+
+
+/*=============== FOOTER ===============*/
+.footer{
+  padding-block: 3rem 1.5rem;
+  border-top: 1px solid hsl(0, 0%, 18%);
+}
+.footer-content{
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+.footer-column{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.footer-title{
+  font-family: var(--second-font);
+  font-size: var(--h2-font-size);
+  color: var(--first-color);
+}
+.footer-list{
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.footer-link{
+  color: var(--white-color);
+  transition: color 0.3s;
+}
+.footer-link:hover{
+  color: var(--first-color);
+}
+.footer-address,
+.footer-hours{
+  color: hsl(0, 0%, 60%);
+}
+.footer-bottom{
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid hsl(0, 0%, 18%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+.footer-logo{
+  font-family: var(--second-font);
+  font-size: 2rem;
+  color: var(--first-color);
+}
+.footer-email{
+  color: var(--white-color);
+  transition: color 0.3s;
+}
+.footer-email:hover{
+  color: var(--first-color);
+}
+.footer-copy{
+  font-size: var(--small-font-size);
+  color: hsl(0, 0%, 60%);
+}
+
+/*=============== DYNAMIC MENU ===============*/
+.menu-loading{
+  color: var(--white-color);
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  text-align: center;
+}
+.card-images .card-dish{
+  position: relative;
+  width: 300px;
+}
+.card-price{
+  font-family: var(--body-font);
+  font-size: var(--h3-font-size);
+  font-weight: var(--font-bold);
+  color: var(--first-color);
+}
+
+/*=============== FORMS ===============*/
+.reservation-form,
+.contact-form{
+  z-index: 5;
+  width: min(100%, 620px);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.reservation-form .form-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.reservation-form input,
+.reservation-form textarea,
+.contact-form input,
+.contact-form textarea{
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background-color: hsla(0, 0%, 0%, 0.45);
+  color: var(--white-color);
+  border: 1px solid var(--white-color);
+  border-radius: 0.6rem;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  color-scheme: dark;
+}
+.reservation-form input::placeholder,
+.reservation-form textarea::placeholder,
+.contact-form input::placeholder,
+.contact-form textarea::placeholder{
+  color: hsla(0, 0%, 98%, 0.65);
+}
+.reservation-form input:focus,
+.reservation-form textarea:focus,
+.contact-form input:focus,
+.contact-form textarea:focus{
+  border-color: var(--first-color);
+  outline: none;
+}
+.reservation-submit,
+.contact-submit{
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background-color: var(--first-color);
+  color: var(--dark-color);
+  border: 1px solid var(--first-color);
+  border-radius: 0.6rem;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background-color 0.4s, color 0.4s;
+}
+.reservation-submit:hover,
+.contact-submit:hover{
+  background-color: var(--first-color-alt);
+}
+.form-feedback{
+  min-height: 1.4rem;
+  font-family: var(--body-font);
+  font-size: var(--small-font-size);
+  text-align: center;
+}
+.form-feedback.error{
+  color: hsl(0, 70%, 62%);
+}
+.form-feedback.success{
+  color: hsl(125, 55%, 62%);
+}
+
+/*=============== CONTACT FORM LAYOUT ===============*/
+.contact-form{
+  margin-top: 4rem;
+}
+.contact-form .contact-form-row{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/*=============== SCROLL BAR ===============*/
+::-webkit-scrollbar{
+  width: 0.4rem;
+  background-color: hsl(0, 0%, 15%);
+}
+::-webkit-scrollbar-thumb{
+  background-color: hsl(0, 0%, 25%);
+}
+::-webkit-scrollbar-thumb:hover{
+  background-color: hsl(0, 0%, 45%);
+}
+/*=============== SCROLL UP ===============*/
+.scroll-up{
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: var(--z-tooltip);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  background-color: var(--first-color);
+  color: var(--dark-color);
+  border-radius: 0.5rem;
+  opacity: 0;
+  transform: translateY(4rem);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.scroll-up.show-scroll{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Show Scroll Up */
+
+
+/*=============== BREAKPOINTS ===============*/
+/* For medium devices (tablets) <> */
+@media (min-width: 901px) and (max-width: 1150px){
+  .nav-container{
+    padding: 40px 40px;
+  }
+  .nav-container .menu-list{
+    gap: 30px;
+  }
+  .home-container{
+    padding-left: 40px;
+    padding-right: 40px;
+    gap: 60px;
+  }
+  .home-images .home-frying-pan{
+    width: 520px;
+  }
+  .home-images .home-salt{
+    width: 260px;
+    left: 230px;
+    top: -17px;
+  }
+  .home-images .home-salt2{
+    width: 260px;
+    left: -102px;
+    top: 161px;
+  }
+  .home-images .home-pepper{
+    width: 212px;
+    left: 102px;
+    top: 306px;
+  }
+  .home-images .home-tomato{
+    width: 110px;
+    left: 0;
+    top: 382px;
+  }
+  .home-images .home-rosemary-1{
+    width: 102px;
+    left: -68px;
+    top: 370px;
+  }
+  .home-images .home-rosemary-2{
+    width: 153px;
+    left: 382px;
+    top: 255px;
+  }
+  .home-images .home-onion{
+    width: 102px;
+    left: -34px;
+    top: 0;
+  }
+  .home-images .home-spoon{
+    width: 127px;
+    left: 425px;
+    top: 64px;
+  }
+  .about-section{
+    padding-top: 100px;
+  }
+  .about-content{
+    padding: 50px 40px;
+  }
+  .about-content .about-flour{
+    width: 300px;
+    left: 40px;
+  }
+  .about-content .about-slide{
+    width: 100%;
+    max-width: 900px;
+    margin: 100px auto;
+  }
+  .about-slide .slide-data{
+    padding: 40px 40px;
+  }
+  .menu-section{
+    padding: 140px 40px 80px;
+  }
+  .menu-section .menu-content{
+    gap: 100px;
+  }
+  .menu-content .menu-card{
+    gap: 60px;
+  }
+  .menu-content .menu-card1{
+    gap: 60px;
+  }
+  .ingredients-section{
+    padding: 120px 80px 0;
+  }
+  .contact-section{
+    padding: 140px 40px 80px;
+  }
+  .contact-section .contact-content{
+    gap: 50px;
+  }
+  .reservation-header .reservation-title{
+    font-size: 40px;
+  }
+  .reservation-header .reservation-subtitle{
+    font-size: 40px;
+  }
+}
+
+/* For medium devices <> */
+@media (width <= 900px){
+ .nav-container .nav-menu .button{
+    display: block;
+    color: var(--white-color);
+    cursor: pointer;
+  }
+  .nav-menu .menu-list{
+    background: var(--dark-color);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: -80%;
+    width: 80%;
+    height: 100%;
+    align-items: center;
+    transition: 0.5s ease;
+    justify-content: flex-start;
+    padding-top: 100px;
+    gap: 60px;
+    z-index: 1000;
+    
+  }
+  body.show-mobile-menu .menu-list{
+      right: 0px;
+      
+  }
+  .nav-container .nav-menu  .item-link{
+    display: block;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-container .nav-menu #open-menu{
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 35px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-container .nav-menu #close-menu{
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 35px;
+    -webkit-tap-highlight-color: transparent;
+    
+  }
+
+  .nav-container .nav-logo{
+    font-size: 20px;
+    position: absolute;
+    top: 30px;
+    left: 25px;
+  }
+  /*              home              */
+  .home-container{
+    flex-direction: column;
+    padding-top: 60px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    gap: 20px;
+  }
+  .home-container .home-data{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.home-images{
+  width: 100%;
+  transform: translateX(15px);
+}
+.home-images img{
+  transform: scale(0.5);
+}
+/*            */
+.home-images .home-salt{
+
+  left: 110px;
+  top: 0px;
+}
+.home-images .home-salt2{
+
+  left: -25px;
+  top: 75px;
+}
+.home-images .home-pepper{
+
+  left: 80px;
+  top: 160px;
+}
+.home-images .home-tomato{
+
+  left: 50px;
+  top: 230px;
+  
+}
+.home-images .home-rosemary-1{
+
+  left: 10px;
+  top: 230px;
+}
+.home-images .home-rosemary-2{
+
+  left: 220px;
+  top: 150px;
+}
+.home-images .home-onion{
+
+  left: 50px;
+  top: 60px;
+}
+.home-images .home-spoon{
+
+  left: 260px;
+  top: -5px;
+}
+ /*              about              */
+.about-content{
+  padding: 50px 20px;
+}
+.about-content .about-flour{
+  width: 220px;
+  left: -40px;
+  top: 30px;
+}
+.about-content .about-slide{
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  margin: 80px 0;
+}
+
+.about-section{
+  padding-top: 100px;
+}
+.about-slide .slide-right{
+  width: 100%;
+  height: auto;
+}
+.about-slide .slide-data{
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+.about-slide .slide-data .description{
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 30px;
+}
+.about-content .about-rossmary{
+  z-index: 10;
+  width: 120px;
+  right: 15px;
+  bottom: -60px ;
+}
+/*      menu    */
+.menu-section{
+  padding: 135px 10px 50px;
+  gap: 65px;
+}
+.menu-content .menu-card{
+  width: 100%;
+  grid-template-rows: repeat(2,1fr);
+  grid-template-columns: repeat(1,1fr);
+  align-items: center;
+  place-items: center;
+  gap: 0;
+}
+.menu-card .card-info{
+  text-align: center;
+  align-items: center;
+}
+.menu-card1 .card-info{
+  text-align: center;
+  align-items: center;
+}
+.menu-content .menu-card1{
+  width: 100%;
+  grid-template-rows: repeat(2,1fr);
+  grid-template-columns: repeat(1,1fr);
+  align-items: center;
+  place-items: center;
+  gap: 0;
+}
+.menu-content .card-summary{
+  width: 70%;
+}
+.menu-section .menu-content{
+  gap: 80px;
+}
+.card-images .card-flour4 {
+    width: 350px;
+    left: 45px;
+    top: -30px;
+}
+/*        contact                */
+.contact-section {
+    padding: 125px 10px 100px;
+}
+.contact-section .contact-content {
+  flex-direction: column-reverse;
+  gap: 100px;
+
+}
+.contact-content .contact-gps {
+  width: 300px;
+}
+.contact-content .contact-gps iframe {
+    border-radius: 30px;
+    width: 300px;
+    height: 300px;
+    
+}
+.contact-content .contact-info {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    align-items: center;
+    text-align: center;
+}
+
+.reservation-section {
+    padding-top: 85px;
+}
+
+.footer-content{
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+.footer-bottom{
+  padding-inline: 1rem;
+}
+
+.ingredients-section {
+    padding: 120px 0px 0px;
+}
+.INGREDIENTS-info {
+    place-items: center;
+    gap: 20px;
+}
+.INGREDIENTS-info .INGREDIENTS-description {
+    width: 350px;
+    text-align: center;
+}
+.ingredients-content .INGREDIENTS-images {
+  margin-top: 100px;
+  position: relative;
+    padding: 60px 0px 50px;
+    height: 300px;
+}
+
+
+.reservation-header .reservation-subtitle {
+  text-align: center;
+  font-size: 38px;
+}
+.reservation-header .reservation-title {
+  font-size: 34px;
+}
+.reservation-form .form-grid,
+.contact-form .contact-form-row{
+  grid-template-columns: 1fr;
+}
+.reservation-content{
+  padding-top: 110px;
+  padding-bottom: 3rem;
+}
+
+}
+
+/* For large devices <> */
+
+
+/* For 2K resolutions <> */

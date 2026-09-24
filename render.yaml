@@ -1,0 +1,47 @@
+# ============================================================
+# Render Blueprint - optional one-click deployment.
+#
+# You can also create the Web Service manually from the Render
+# dashboard using the Dockerfile in this repo. If you use this
+# blueprint, replace the repo URL and branch, then set the
+# sync:false variables in the Render dashboard (Dashboard ->
+# Blueprint -> Environments).
+#
+# NOTE: Render does not provide a managed MySQL. Point DB_HOST at
+# an external MySQL/MariaDB provider (e.g. DigitalOcean Managed
+# Databases, Aiven, PlanetScale, Railway) and import
+# database/schema.sql there.
+# ============================================================
+
+services:
+  - type: web
+    name: steakhouse-php
+    runtime: docker
+    repo: https://github.com/your-github-username/responsive-steakhouse-website
+    branch: main
+    plan: starter # adjust plan/instance type as needed
+    autoDeploy: true
+    healthCheckPath: /
+
+    envVars:
+      - key: APP_ENV
+        value: production
+
+      - key: DB_HOST
+        sync: false # secret - set in the Render dashboard
+
+      - key: DB_PORT
+        value: "3306"
+
+      - key: DB_NAME
+        sync: false
+
+      - key: DB_USER
+        sync: false
+
+      - key: DB_PASSWORD
+        sync: false
+
+      # Optional: protect /api/reservations/list.php
+      - key: ADMIN_API_TOKEN
+        sync: false
